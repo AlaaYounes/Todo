@@ -52,6 +52,7 @@ class _mainHomePage extends State<mainHomePage> {
     int completedItems = 0;
 
     for (var group in Data.dummyData) {
+      //create a list to store the numbers in
       List<dynamic> completedStatusList = group['completed'];
       totalItems += completedStatusList.length;
       // Count how many items in this specific group are exactly 'true'
@@ -59,21 +60,26 @@ class _mainHomePage extends State<mainHomePage> {
           .where((status) => status == true)
           .length;
     }
+    //calculate the percentage of the completed items to the total items
     double progressPercentage = totalItems == 0
         ? 0.0
         : completedItems / totalItems;
     return Scaffold(
       appBar: AppBar(
+        //the menu icon at the very top-left of the screen
         leading: IconButton(
-          icon: const Icon(Icons.menu), // This is the standard hamburger icon
-          tooltip: 'Open Menu',
+          icon: const Icon(Icons.menu),
           onPressed: () {
-            // Add your logic to open a drawer or navigate
-            debugPrint('Menu tapped');
+            //the logic to open a menu on top of the current screen should be here, but there was no instructions on
+            //what should be here, so i left it with a print statement that will not affect the usage with anything
+            print('Menu tapped');
           },
         ),
+        //the color is transparent to get the home screen color with no edits to it
         backgroundColor: Colors.transparent,
+        //a tiny tint on the elements on top of the appBar
         foregroundColor: themeColor.surfaceTint,
+        //the max height the appBar can have
         toolbarHeight: 30,
         title: Text(
           'Mindful Planner',
@@ -83,12 +89,13 @@ class _mainHomePage extends State<mainHomePage> {
           ),
         ),
         actions: [
+          //adding a circular profile picture at the top-right of the appBar
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: CircleAvatar(
               radius: 20, // Controls the size of the circle
               backgroundImage: NetworkImage(
-                'https://your-image-url.com/profile.jpg',
+                'https://www.gettyimages.com/detail/photo/cold-day-at-the-beach-royalty-free-image/1161727825',
               ),
             ),
           ),

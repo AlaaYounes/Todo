@@ -158,7 +158,7 @@ class _mainHomePage extends State<mainHomePage> {
                           fontSize: 12,
                         ),
                       ),
-                      SizedBox(width: 146),
+                      SizedBox(width: 126),
                       Icon(
                         Icons.edit_outlined,
                         color: Color.fromRGBO(148, 73, 49, 1),
@@ -174,8 +174,7 @@ class _mainHomePage extends State<mainHomePage> {
                       fontSize: 18,
                       letterSpacing: 1.3,
                       fontStyle: FontStyle.italic,
-                      fontWeight: FontWeight
-                          .w400, // This is the crucial missing piece (Semi-Bold)
+                      fontWeight: FontWeight.bold,
                       color: const Color(
                         0xFF1E1B1A,
                       ), // Use your dark onSurface text color
@@ -432,7 +431,7 @@ class _mainHomePage extends State<mainHomePage> {
         shape: CircleBorder(),
         backgroundColor: Color.fromRGBO(145, 71, 49, 1),
         foregroundColor: Colors.white,
-        child: Icon(Icons.mic_none),
+        child: Icon(Icons.add),
       ),
     );
   }

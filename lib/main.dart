@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mindfultodo/AddTaskScreen.dart';
 import 'package:mindfultodo/assets/colors.dart';
 import 'assets/data.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -425,7 +426,10 @@ class _mainHomePage extends State<mainHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          print("this button was clicked");
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: ((context) => Addtaskscreen())),
+          );
         },
         elevation: 10,
         shape: CircleBorder(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:mindfultodo/widgets/DayCard.dart';
-import 'package:mindfultodo/widgets/FocusBar.dart';
+import 'package:mindfultodo/features/calender/presentation/widgets/day_card_widget.dart';
+import 'package:mindfultodo/features/calender/presentation/widgets/focus_bar_widget.dart';
 
 class CalenderScreen extends StatefulWidget {
   const CalenderScreen({super.key});
@@ -94,8 +94,8 @@ class _CalenderScreen extends State<CalenderScreen> {
                   String dName = weekdays[cardDate.weekday - 1];
 
                   return DayCard(
-                    dName: dName,
-                    dNum: dNum,
+                    dayName: dName,
+                    dayNumber: dNum,
                     isSelected: selectedIndex == index,
                     onTap: () {
                       setState(() {
@@ -142,8 +142,8 @@ class _CalenderScreen extends State<CalenderScreen> {
                             'S',
                             'S',
                           ];
-                          return Focusbar(
-                            dName: singleLetterDays[index],
+                          return FocusBarWidget(
+                            dayName: singleLetterDays[index],
                             focusValue: weeklyFocusData[index],
                             hieghestValue: maxValue,
                             maxHeight: 120,

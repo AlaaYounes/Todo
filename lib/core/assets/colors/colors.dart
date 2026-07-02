@@ -29,4 +29,20 @@ class AppColors {
   static const Color workCategory = Color(0xFFF5F3EE); // Neutral surface
   static const Color personalCategory = Color(0xFFF5F3EE); // Neutral surface
   static const Color creativeTag = Color(0xFFF5F3EE);
+  static const Color bottomNavIconActive = Color(0xFF551905);
+  static const Color bottomNavIconInactive = Color(0xFF394b3a);
+  static const Color bottomNavIconBackground = Color(0xFFd67d61);
+  static const Color bgColor = Color(0xFFFCF8F7);
+  static const Color textDark = Color(0xFF3E2D24);
+  static const Color textLight = Color(0xFFB5A79E);
+  static const Color buttonColor = Color(0xFF5A3A2C);
+  static const Color chipInactiveBg = Color(0xFFF3EBE6);
+  static const Color chipActiveBg = Color(0xFFF4DACF);
+  static Color completedBgColor = const Color(0xFFE8F5E9);
+  static Color completedBorderColor = const Color(0xFFA5D6A7);
+  static Color completedTextColor = const Color(0xFF2E7D32);
+  static Color uncompletedBgColor = const Color(0xFFFAFAFA);
+  static Color uncompletedBorderColor = const Color(0xFFE0E0E0);
+  
+
 }

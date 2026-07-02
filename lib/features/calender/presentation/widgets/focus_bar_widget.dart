@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Focusbar extends StatelessWidget {
-  final String dName;
+class FocusBarWidget extends StatelessWidget {
+  final String dayName;
   final double focusValue;
   final double hieghestValue;
   final double maxHeight;
   final bool isSelected;
 
-  const Focusbar({
-    required this.dName,
+  const FocusBarWidget({
+    required this.dayName,
     required this.focusValue,
     required this.isSelected,
     required this.hieghestValue,
@@ -20,9 +21,9 @@ class Focusbar extends StatelessWidget {
   Widget build(BuildContext context) {
     double barHeight;
     if (hieghestValue == 0) {
-      barHeight = 0;
+      barHeight = 0.h;
     } else {
-      barHeight = (focusValue / hieghestValue) * maxHeight;
+      barHeight = ((focusValue / hieghestValue) * maxHeight).h;
     }
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -30,18 +31,18 @@ class Focusbar extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
+              topLeft: Radius.circular(12.r),
+              topRight: Radius.circular(12.r),
             ),
             color: !isSelected
                 ? Color.fromRGBO(228, 235, 228, 1)
                 : Color.fromRGBO(206, 126, 96, 1),
           ),
-          width: 25,
+          width: 25.w,
           height: barHeight,
         ),
-        SizedBox(height: 9),
-        Text(dName),
+        SizedBox(height: 9.h),
+        Text(dayName),
       ],
     );
   }

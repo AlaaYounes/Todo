@@ -82,6 +82,7 @@ class _CalenderScreenState extends State<CalenderScreen> {
                             ],
                           ),
                           ProgressCircleWidget(
+                            backgroundColor: Colors.transparent,
                             progressPercentage: cubit.tasksList.isEmpty
                                 ? 0.0
                                 : cubit.tasksList

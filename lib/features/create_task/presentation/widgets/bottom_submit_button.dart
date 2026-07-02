@@ -3,8 +3,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mindfultodo/core/assets/colors/colors.dart';
 
 class BottomSubmitButton extends StatelessWidget {
-  const BottomSubmitButton({super.key, required this.onPressed});
-final void Function()? onPressed;
+  const BottomSubmitButton({
+    super.key,
+    required this.onPressed,
+    this.isEdit = false,
+  });
+  final void Function()? onPressed;
+  final bool isEdit;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -26,7 +31,7 @@ final void Function()? onPressed;
             elevation: 0,
           ),
           child: Text(
-            "Create Task",
+            isEdit ? "Update Task" : "Create Task",
             style: TextStyle(
               fontSize: 16.sp,
               color: Color(0xFFD6C8C1),

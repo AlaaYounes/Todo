@@ -59,7 +59,7 @@ class TaskItemWidget extends StatelessWidget {
           ),
           IconButton(
             onPressed: onPressed,
-            icon: Icon(Icons.delete, size: 25.sp, color: Colors.red),
+            icon: Icon(Icons.edit, size: 25.sp, color: Colors.black),
           ),
         ],
       ),

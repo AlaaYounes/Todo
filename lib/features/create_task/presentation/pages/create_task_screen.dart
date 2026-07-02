@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mindfultodo/features/create_task/presentation/cubit/task_cubit.dart';
 import 'package:mindfultodo/features/create_task/presentation/cubit/task_state.dart';
+import 'package:mindfultodo/features/create_task/presentation/pages/new_task_screen.dart';
 import 'package:mindfultodo/features/create_task/presentation/widgets/add_task_button.dart';
 import 'package:mindfultodo/features/create_task/presentation/widgets/added_tasks_header_widget.dart';
 import 'package:mindfultodo/features/create_task/presentation/widgets/create_tasks_top_part_widget.dart';
@@ -64,10 +65,15 @@ class _CreateTaskScreenState extends State<CreateTaskScreen> {
                                 taskDescription:
                                     cubit.tasksList[index].description!,
                                 onPressed: () {
-                                  final taskId = cubit.tasksList[index].id;
-                                  if (taskId != null) {
-                                    cubit.deleteTask(taskId);
-                                  }
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => NewTaskScreen(
+                                        task: cubit.tasksList[index],
+                                        isEdit: true,
+                                      ),
+                                    ),
+                                  );
                                 },
                               ),
                               SizedBox(height: 12.h),

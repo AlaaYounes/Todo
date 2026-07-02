@@ -9,6 +9,7 @@ import 'package:mindfultodo/features/create_task/domain/usecases/create_task_use
 import 'package:mindfultodo/features/create_task/domain/usecases/delete_task_usecase.dart';
 import 'package:mindfultodo/features/create_task/presentation/cubit/task_state.dart';
 import 'package:mindfultodo/features/today/domain/usecases/get_all_tasks_usecase.dart';
+import 'package:mindfultodo/features/today/domain/usecases/update_task_status_usecase.dart';
 
 class TaskCubit extends Cubit<TaskStates> {
   TaskCubit() : super(CreateTaskInitialState());
@@ -17,6 +18,7 @@ class TaskCubit extends Cubit<TaskStates> {
   final _creatTaskUsecase = sl.get<CreateTaskUsecase>();
   final _deleteTaskUsecase = sl.get<DeleteTaskUsecase>();
   final _getAllTasksUsecase = sl.get<GetAllTasksUsecase>();
+  final _updateTaskUsecase = sl.get<UpdateTaskUsecase>();
 
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
@@ -24,6 +26,17 @@ class TaskCubit extends Cubit<TaskStates> {
   bool isFocusAreaVisible = false;
   DateTime? selectedDate = DateTime.now();
   TimeOfDay? selectedTime = TimeOfDay.now();
+  late int _taskId;
+  void initalizeData(TaskEntity selectedTask) {
+    _taskId = selectedTask.id!;
+    titleController.text = selectedTask.title!;
+    descriptionController.text = selectedTask.description!;
+    categoryController.text = selectedTask.category!;
+    selectedDate = DateTime.parse(selectedTask.date!);
+    selectedTime = GeneralMethods.convertFromSinceEpoch(
+      selectedTask.startTime!,
+    );
+  }
 
   List<TaskEntity> tasksList = [];
   void changeDate(DateTime date) {
@@ -63,9 +76,29 @@ class TaskCubit extends Cubit<TaskStates> {
       final String message = await _creatTaskUsecase.call(task);
       log(message);
       emit(AddTaskSuccessState(message));
-      tasksList.add(task);
       init();
     }
+  }
+
+  void updateTask() {
+    CreateTaskLoadingState();
+    TaskEntity task = TaskEntity(
+      id: _taskId,
+      title: titleController.text,
+      description: descriptionController.text,
+      date: selectedDate.toString(),
+      startTime: GeneralMethods.convertToSinceEpoch(
+        selectedTime!,
+        selectedDate!,
+      ),
+      endTime: null,
+      duration: 0,
+      category: focusArea.isNotEmpty ? focusArea : categoryController.text,
+      isCompleted: false,
+    );
+    _updateTaskUsecase.call(task);
+    emit(UpdateTaskSuccessState(message: 'Task updated successfully.'));
+    init();
   }
 
   @override
@@ -94,7 +127,13 @@ class TaskCubit extends Cubit<TaskStates> {
   }
 
   Future<void> getAllTasks() async {
-    tasksList = await _getAllTasksUsecase.call();
+    tasksList.clear();
+    final result = await _getAllTasksUsecase.call();
+    for (TaskEntity task in result) {
+      if (task.isCompleted == false) {
+        tasksList.add(task);
+      }
+    }
     emit(GetAllTasksSuccessState());
   }
 

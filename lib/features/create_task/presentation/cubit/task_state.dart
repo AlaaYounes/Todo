@@ -26,3 +26,10 @@ class DeleteTaskSuccessState extends TaskStates {
 }
 
 class GetAllTasksSuccessState extends TaskStates {}
+
+class UpdateTaskSuccessState extends TaskStates {
+   String message;
+  UpdateTaskSuccessState({required this.message});
+}
+
+class CreateTaskLoadingState extends TaskStates {}

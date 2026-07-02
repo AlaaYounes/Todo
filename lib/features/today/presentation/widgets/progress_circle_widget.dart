@@ -9,21 +9,23 @@ class ProgressCircleWidget extends StatelessWidget {
     required this.progressPercentage,
     required this.totalItems,
     required this.completedItems,
+    this.backgroundColor,
   });
 
   final double progressPercentage;
   final int totalItems;
   final int completedItems;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 15.h, horizontal: 85.w),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: backgroundColor ?? Colors.white,
         borderRadius: BorderRadius.all(Radius.circular(12.r)),
         border: Border.all(
-          color: Color.fromRGBO(211, 211, 211, 0.5),
+          color: backgroundColor ?? Color.fromRGBO(211, 211, 211, 0.5),
           width: 0.5.w,
         ),
       ),

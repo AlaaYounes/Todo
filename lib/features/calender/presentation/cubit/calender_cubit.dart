@@ -18,6 +18,9 @@ class CalenderCubit extends Cubit<CalenderStates> {
   late DateTime startOfWeek;
   late DateTime endOfWeek;
   List<String> weekdays = [];
+  int totalItems = 0;
+  int completedItems = 0;
+  int remainingItems = 0;
   final List<String> _dayNames = [
     'Mon',
     'Tue',
@@ -44,7 +47,8 @@ class CalenderCubit extends Cubit<CalenderStates> {
       weeklyFocusData.clear();
       weekdays
           .clear(); // Clear weekdays so it doesn't duplicate on multiple calls
-
+      completedItems = 0;
+      remainingItems = 0;
       DateTime now = DateTime.now();
       DateTime today = DateTime(now.year, now.month, now.day);
 
@@ -84,7 +88,9 @@ class CalenderCubit extends Cubit<CalenderStates> {
           '$dayName (${currentDay.day}/${currentDay.month}) total: $dayTotalDuration',
         );
       }
-
+      completedItems = tasksList.where((task) => task.isCompleted!).length;
+      totalItems = tasksList.length;
+      remainingItems = totalItems - completedItems;
       emit(CalenderGetWeeklyFocusDataState());
     });
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:mindfultodo/core/network/domain/entities/task_entity.dart';
+import 'package:mindfultodo/core/shared/network/domain/entities/task_entity.dart';
 
 class TaskDescriptionCard extends StatelessWidget {
   const TaskDescriptionCard({super.key, required this.task});

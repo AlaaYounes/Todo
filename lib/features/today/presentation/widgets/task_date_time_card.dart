@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
-import 'package:mindfultodo/core/network/domain/entities/task_entity.dart';
+import 'package:mindfultodo/core/shared/local/general_methods.dart';
+import 'package:mindfultodo/core/shared/network/domain/entities/task_entity.dart';
 
 class TaskDateTimeCard extends StatelessWidget {
   const TaskDateTimeCard({super.key, required this.task});
   final TaskEntity task;
   @override
   Widget build(BuildContext context) {
-    String rawTime = task.startTime!;
-    int hour = int.parse(rawTime.substring(10, 12));
-    int minute = int.parse(rawTime.substring(13, 15));
-    TimeOfDay restoredTime = TimeOfDay(hour: hour, minute: minute);
+    String startTimeFormatted = GeneralMethods.convertFromSinceEpoch(
+      task.startTime!,
+    ).format(context);
+    String endTimeFormatted = GeneralMethods.convertFromSinceEpoch(
+      task.endTime ?? 0,
+    ).format(context);
     return Container(
       padding: EdgeInsets.all(20.w),
       decoration: BoxDecoration(
@@ -78,19 +81,41 @@ class TaskDateTimeCard extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 15.w),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    restoredTime.format(context),
-                    style: TextStyle(
-                      fontSize: 10.sp,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[700],
-                      letterSpacing: 1.0,
+              Text(
+                startTimeFormatted,
+                style: TextStyle(
+                  fontSize: 10.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[700],
+                  letterSpacing: 1.0,
+                ),
+              ),
+              SizedBox(width: 10.w),
+              Visibility(
+                visible: task.isCompleted!,
+                child: Row(
+                  children: [
+                    Text(
+                      '-',
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[700],
+                        letterSpacing: 1.0,
+                      ),
                     ),
-                  ),
-                ],
+                    SizedBox(width: 10.w),
+                    Text(
+                      endTimeFormatted,
+                      style: TextStyle(
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[700],
+                        letterSpacing: 1.0,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

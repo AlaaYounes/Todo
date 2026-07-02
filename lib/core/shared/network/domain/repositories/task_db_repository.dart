@@ -1,4 +1,4 @@
-import 'package:mindfultodo/core/network/domain/entities/task_entity.dart';
+import 'package:mindfultodo/core/shared/network/domain/entities/task_entity.dart';
 
 abstract class TaskDBRepository {
 Future<String> addTask(TaskEntity task);

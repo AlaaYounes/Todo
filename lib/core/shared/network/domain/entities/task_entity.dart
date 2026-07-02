@@ -3,8 +3,8 @@ class TaskEntity {
   String? title;
   String? description;
   String? date;
-  String? startTime;
-  String? endTime;
+  int? startTime;
+  int? endTime;
   bool? isCompleted = false;
   String? category;
   double? duration;

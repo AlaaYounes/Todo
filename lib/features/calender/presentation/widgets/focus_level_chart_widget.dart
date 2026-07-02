@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mindfultodo/features/calender/presentation/cubit/calender_cubit.dart';
 import 'package:mindfultodo/features/calender/presentation/widgets/focus_bar_widget.dart';
 
 class FocusLevelChart extends StatelessWidget {
   final List<double> weeklyFocusData;
   final int selectedIndex;
-
+  final CalenderCubit calenderCubit;
   const FocusLevelChart({
     super.key,
     required this.weeklyFocusData,
     required this.selectedIndex,
+    required this.calenderCubit,
   });
 
   @override
   Widget build(BuildContext context) {
-    double maxValue = weeklyFocusData.reduce((a, b) => a > b ? a : b);
-    if (maxValue == 0) maxValue = 1;
-    double weeklyFocusDataSum = weeklyFocusData.fold(
-      0,
-      (sum, item) => sum + item,
+    double maxValue = calenderCubit.weeklyFocusData.reduce(
+      (a, b) => a > b ? a : b,
     );
-    double averageFocus = weeklyFocusDataSum / weeklyFocusData.length;
-
-    const List<String> singleLetterDays = ['M', 'T', 'W', 'T', 'F', 'S', 'S'];
 
     return Container(
       decoration: BoxDecoration(
@@ -38,7 +34,7 @@ class FocusLevelChart extends StatelessWidget {
             children: [
               const Text('FOCUS LEVEL'),
               Text(
-                "${averageFocus.toStringAsFixed(1)}h/day",
+                "${calenderCubit.weeklyFocusData[selectedIndex].toStringAsFixed(1)}h/day",
               ), // Added toStringAsFixed(1) to avoid long decimals
             ],
           ),
@@ -49,12 +45,11 @@ class FocusLevelChart extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: List.generate(7, (index) {
                 return FocusBarWidget(
-                  dayName: singleLetterDays[index],
-                  focusValue: weeklyFocusData[index],
-                  hieghestValue:
-                      maxValue, // Left as hieghestValue to match your existing FocusBar.dart
+                  dayName: calenderCubit.weekdays[index],
+                  focusValue: calenderCubit.weeklyFocusData[index],
+                  hieghestValue: maxValue,
                   maxHeight: 120.h,
-                  isSelected: selectedIndex == index,
+                  isSelected: calenderCubit.selectedDayIndex == index,
                 );
               }),
             ),

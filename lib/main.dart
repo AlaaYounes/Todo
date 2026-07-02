@@ -6,6 +6,7 @@ import 'package:mindfultodo/core/di/service_locator.dart';
 import 'package:mindfultodo/features/app-layout/presentation/pages/app_layout.dart';
 import 'package:mindfultodo/features/app-layout/presentation/cubit/app_layout_cubit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mindfultodo/features/calender/presentation/cubit/calender_cubit.dart';
 import 'package:mindfultodo/features/create_task/presentation/cubit/task_cubit.dart';
 import 'package:mindfultodo/features/today/presentation/cubit/today_cubit.dart';
 
@@ -28,6 +29,7 @@ class Render extends StatelessWidget {
           BlocProvider(create: (context) => AppLayoutCubit()),
           BlocProvider(create: (context) => TaskCubit()),
           BlocProvider(create: (context) => TodayCubit()),
+          BlocProvider(create: (context) => CalenderCubit()),
         ],
         child: MaterialApp(
           debugShowCheckedModeBanner: false,

@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:isar/isar.dart';
-import 'package:mindfultodo/core/network/data/models/task_model.dart';
-import 'package:mindfultodo/core/network/domain/entities/task_entity.dart';
+import 'package:mindfultodo/core/shared/network/data/models/task_model.dart';
+import 'package:mindfultodo/core/shared/network/domain/entities/task_entity.dart';
 import 'package:path_provider/path_provider.dart';
 
 abstract class TaskIsarService {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mindfultodo/core/assets/colors/colors.dart';
-import 'package:mindfultodo/core/network/domain/entities/task_entity.dart';
+import 'package:mindfultodo/core/shared/network/domain/entities/task_entity.dart';
 import 'package:mindfultodo/features/today/presentation/cubit/today_cubit.dart';
 import 'package:mindfultodo/features/today/presentation/widgets/task_action_buttons.dart';
 import 'package:mindfultodo/features/today/presentation/widgets/task_date_time_card.dart';
@@ -39,12 +39,6 @@ class TaskDetailsScreen extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.edit, color: Colors.black, size: 22.sp),
-              onPressed: () {},
-            ),
-          ],
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
@@ -62,10 +56,8 @@ class TaskDetailsScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 20.h),
-      
               TaskDescriptionCard(task: task),
               SizedBox(height: 15.h),
-      
               TaskDateTimeCard(task: task),
               SizedBox(height: MediaQuery.of(context).size.height * 0.25),
               TaskActionButtons(task: task),

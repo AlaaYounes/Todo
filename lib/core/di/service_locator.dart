@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
-import 'package:mindfultodo/core/network/data/datasource/task_isar_database.dart';
-import 'package:mindfultodo/core/network/data/repository/task_db_repository_impl.dart';
-import 'package:mindfultodo/core/network/domain/repositories/task_db_repository.dart';
+import 'package:mindfultodo/core/shared/network/data/datasource/task_isar_database.dart';
+import 'package:mindfultodo/core/shared/network/data/repository/task_db_repository_impl.dart';
+import 'package:mindfultodo/core/shared/network/domain/repositories/task_db_repository.dart';
 import 'package:mindfultodo/features/create_task/domain/usecases/create_task_usecase.dart';
 import 'package:mindfultodo/features/create_task/domain/usecases/delete_task_usecase.dart';
 import 'package:mindfultodo/features/create_task/presentation/cubit/task_cubit.dart';

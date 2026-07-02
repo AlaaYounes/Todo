@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:mindfultodo/core/assets/colors/colors.dart';
-import 'package:mindfultodo/core/network/domain/entities/task_entity.dart';
+import 'package:mindfultodo/core/shared/network/domain/entities/task_entity.dart';
 import 'package:mindfultodo/features/today/presentation/widgets/task_subtitle.dart';
 
 class TaskItemCard extends StatelessWidget {
@@ -79,7 +79,7 @@ class TaskItemCard extends StatelessWidget {
                       padding: EdgeInsets.only(top: 6.h),
                       child: TaskSubtitle(
                         description: task.description!,
-                        time: task.startTime ?? '',
+                        time: task.endTime??0,
                         isCompleted: isCompleted,
                       ),
                     ),

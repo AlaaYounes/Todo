@@ -2,7 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mindfultodo/core/network/domain/entities/task_entity.dart';
+import 'package:mindfultodo/core/shared/local/general_methods.dart';
+import 'package:mindfultodo/core/shared/network/domain/entities/task_entity.dart';
 import 'package:mindfultodo/core/di/service_locator.dart';
 import 'package:mindfultodo/features/create_task/domain/usecases/create_task_usecase.dart';
 import 'package:mindfultodo/features/create_task/domain/usecases/delete_task_usecase.dart';
@@ -50,8 +51,11 @@ class TaskCubit extends Cubit<TaskStates> {
         title: titleController.text,
         description: descriptionController.text,
         date: selectedDate.toString(),
-        startTime: selectedTime.toString(),
-        endTime: '',
+        startTime: GeneralMethods.convertToSinceEpoch(
+          selectedTime!,
+          selectedDate!,
+        ),
+        endTime: null,
         duration: 0,
         category: focusArea.isNotEmpty ? focusArea : categoryController.text,
         isCompleted: false,

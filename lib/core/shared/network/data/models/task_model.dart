@@ -1,5 +1,5 @@
 import 'package:isar/isar.dart';
-import 'package:mindfultodo/core/network/domain/entities/task_entity.dart';
+import 'package:mindfultodo/core/shared/network/domain/entities/task_entity.dart';
 part 'task_model.g.dart';
 
 @collection
@@ -9,8 +9,8 @@ class TaskModel {
   String? title;
   String? description;
   String? date;
-  String? startTime;
-  String? endTime;
+  int? startTime;
+  int? endTime;
   double? duration;
   String? category;
   bool? isCompleted = false;

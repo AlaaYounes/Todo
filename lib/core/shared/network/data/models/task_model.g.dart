@@ -40,7 +40,7 @@ const TaskModelSchema = CollectionSchema(
     r'endTime': PropertySchema(
       id: 4,
       name: r'endTime',
-      type: IsarType.string,
+      type: IsarType.long,
     ),
     r'isCompleted': PropertySchema(
       id: 5,
@@ -50,7 +50,7 @@ const TaskModelSchema = CollectionSchema(
     r'startTime': PropertySchema(
       id: 6,
       name: r'startTime',
-      type: IsarType.string,
+      type: IsarType.long,
     ),
     r'title': PropertySchema(
       id: 7,
@@ -97,18 +97,6 @@ int _taskModelEstimateSize(
     }
   }
   {
-    final value = object.endTime;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
-    final value = object.startTime;
-    if (value != null) {
-      bytesCount += 3 + value.length * 3;
-    }
-  }
-  {
     final value = object.title;
     if (value != null) {
       bytesCount += 3 + value.length * 3;
@@ -127,9 +115,9 @@ void _taskModelSerialize(
   writer.writeString(offsets[1], object.date);
   writer.writeString(offsets[2], object.description);
   writer.writeDouble(offsets[3], object.duration);
-  writer.writeString(offsets[4], object.endTime);
+  writer.writeLong(offsets[4], object.endTime);
   writer.writeBool(offsets[5], object.isCompleted);
-  writer.writeString(offsets[6], object.startTime);
+  writer.writeLong(offsets[6], object.startTime);
   writer.writeString(offsets[7], object.title);
 }
 
@@ -144,9 +132,9 @@ TaskModel _taskModelDeserialize(
     date: reader.readStringOrNull(offsets[1]),
     description: reader.readStringOrNull(offsets[2]),
     duration: reader.readDoubleOrNull(offsets[3]),
-    endTime: reader.readStringOrNull(offsets[4]),
+    endTime: reader.readLongOrNull(offsets[4]),
     isCompleted: reader.readBoolOrNull(offsets[5]),
-    startTime: reader.readStringOrNull(offsets[6]),
+    startTime: reader.readLongOrNull(offsets[6]),
     title: reader.readStringOrNull(offsets[7]),
   );
   object.id = id;
@@ -169,11 +157,11 @@ P _taskModelDeserializeProp<P>(
     case 3:
       return (reader.readDoubleOrNull(offset)) as P;
     case 4:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 5:
       return (reader.readBoolOrNull(offset)) as P;
     case 6:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readLongOrNull(offset)) as P;
     case 7:
       return (reader.readStringOrNull(offset)) as P;
     default:
@@ -814,54 +802,46 @@ extension TaskModelQueryFilter
   }
 
   QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'endTime',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeGreaterThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'endTime',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeLessThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'endTime',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeBetween(
-    String? lower,
-    String? upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -870,76 +850,6 @@ extension TaskModelQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'endTime',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'endTime',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'endTime',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'endTime',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> endTimeIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'endTime',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition>
-      endTimeIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'endTime',
-        value: '',
       ));
     });
   }
@@ -1043,55 +953,47 @@ extension TaskModelQueryFilter
   }
 
   QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> startTimeEqualTo(
-    String? value, {
-    bool caseSensitive = true,
-  }) {
+      int? value) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.equalTo(
         property: r'startTime',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition>
       startTimeGreaterThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         include: include,
         property: r'startTime',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> startTimeLessThan(
-    String? value, {
+    int? value, {
     bool include = false,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.lessThan(
         include: include,
         property: r'startTime',
         value: value,
-        caseSensitive: caseSensitive,
       ));
     });
   }
 
   QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> startTimeBetween(
-    String? lower,
-    String? upper, {
+    int? lower,
+    int? upper, {
     bool includeLower = true,
     bool includeUpper = true,
-    bool caseSensitive = true,
   }) {
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.between(
@@ -1100,76 +1002,6 @@ extension TaskModelQueryFilter
         includeLower: includeLower,
         upper: upper,
         includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> startTimeStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'startTime',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> startTimeEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'startTime',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> startTimeContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'startTime',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> startTimeMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'startTime',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition> startTimeIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'startTime',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<TaskModel, TaskModel, QAfterFilterCondition>
-      startTimeIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'startTime',
-        value: '',
       ));
     });
   }
@@ -1565,10 +1397,9 @@ extension TaskModelQueryWhereDistinct
     });
   }
 
-  QueryBuilder<TaskModel, TaskModel, QDistinct> distinctByEndTime(
-      {bool caseSensitive = true}) {
+  QueryBuilder<TaskModel, TaskModel, QDistinct> distinctByEndTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'endTime', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'endTime');
     });
   }
 
@@ -1578,10 +1409,9 @@ extension TaskModelQueryWhereDistinct
     });
   }
 
-  QueryBuilder<TaskModel, TaskModel, QDistinct> distinctByStartTime(
-      {bool caseSensitive = true}) {
+  QueryBuilder<TaskModel, TaskModel, QDistinct> distinctByStartTime() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'startTime', caseSensitive: caseSensitive);
+      return query.addDistinctBy(r'startTime');
     });
   }
 
@@ -1625,7 +1455,7 @@ extension TaskModelQueryProperty
     });
   }
 
-  QueryBuilder<TaskModel, String?, QQueryOperations> endTimeProperty() {
+  QueryBuilder<TaskModel, int?, QQueryOperations> endTimeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'endTime');
     });
@@ -1637,7 +1467,7 @@ extension TaskModelQueryProperty
     });
   }
 
-  QueryBuilder<TaskModel, String?, QQueryOperations> startTimeProperty() {
+  QueryBuilder<TaskModel, int?, QQueryOperations> startTimeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'startTime');
     });

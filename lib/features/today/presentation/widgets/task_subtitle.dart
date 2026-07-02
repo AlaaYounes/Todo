@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:mindfultodo/core/shared/local/general_methods.dart';
 
 class TaskSubtitle extends StatelessWidget {
   final String description;
-  final String time;
+  final int time;
   final bool isCompleted;
 
   const TaskSubtitle({
@@ -36,10 +37,12 @@ class TaskSubtitle extends StatelessWidget {
             ),
           ),
         ),
-        if (isCompleted && time.isNotEmpty) ...[
+        if (isCompleted && time != 0) ...[
           SizedBox(width: 10.w),
           Text(
-            TimeOfDay.now().format(context),
+            GeneralMethods.convertFromSinceEpoch(
+              time,
+            ).format(context),
             style: TextStyle(fontSize: 12.sp, fontWeight: FontWeight.bold),
           ),
         ],

@@ -1,7 +1,7 @@
 allprojects {
     repositories {
         google()
-        mavenCentral()
+       mavenCentral()
     }
 }
 
@@ -22,12 +22,21 @@ subprojects {
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }
+
 subprojects {
     if (name == "isar_flutter_libs") {
         pluginManager.withPlugin("com.android.library") {
             extensions.configure<com.android.build.api.dsl.LibraryExtension> {
                 namespace = "dev.isar.isar_flutter_libs"
             }
+        }
+    }
+
+    // Force older subproject configurations to downgrade the problematic core-ktx dependency version
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.core:core:1.6.0")
+            force("androidx.core:core-ktx:1.6.0")
         }
     }
 }
